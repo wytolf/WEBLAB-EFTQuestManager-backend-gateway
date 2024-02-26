@@ -1,0 +1,45 @@
+GET http://localhost:4555/
+Content-Type: application/json
+
+
+###
+POST http://localhost:4555/api/user
+Content-Type: application/json
+
+{
+  "id": 2,
+  "username": "user1",
+  "role": "admin",
+  "quests": []
+}
+
+###
+GET http://localhost:4555/api/user
+Content-Type: application/json
+
+###
+GET http://localhost:4555/api/user/2
+Content-Type: application/json
+
+
+
+
+###
+POST http://localhost:4555/api/quests
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Delivery from the past",
+  "map": "Customs",
+  "trader": "Prapor",
+  "link": "http://www.example.com"
+}
+
+###
+GET http://localhost:4555/api/quests
+Content-Type: application/json
+
+###
+GET http://localhost:4555/api/quests/10
+Content-Type: application/json
