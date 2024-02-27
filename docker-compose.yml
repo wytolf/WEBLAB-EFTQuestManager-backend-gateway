@@ -1,0 +1,55 @@
+services:
+  quest-server:
+    build:
+      context: ../EFTQuestManager-backend-quest
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4557:4557
+    env_file:
+      - ../EFTQuestManager-backend-quest/.env
+    networks:
+      - questmanager-network
+
+  user-server:
+    build:
+      context: ../EFTQuestManager-backend-user
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4556:4556
+    env_file:
+      - ../EFTQuestManager-backend-user/.env
+    networks:
+      - questmanager-network
+
+  auth-server:
+    build:
+      context: ../EFTQuestManager-backend-auth
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4558:4558
+    env_file:
+      - ../EFTQuestManager-backend-auth/.env
+    networks:
+      - questmanager-network
+
+  gateway:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4555:4555
+    env_file:
+      - ./docker.env
+    depends_on:
+      - quest-server
+      - user-server
+    networks:
+      - questmanager-network
+
+networks:
+  questmanager-network:
+    driver: bridge

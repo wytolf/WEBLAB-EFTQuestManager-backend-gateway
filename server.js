@@ -1,37 +1,42 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 function main() {
     const server = express();
-    server.use(express.json())
+    server.use(express.json());
+    server.use(cors());
 
     server.listen(4555, () => {
         console.log('Gateway Server is listening....');
     });
 
-    server.post('/api/login', async (req, res) => {
-        console.log(`Gateway Service: POST /login wurde aufgerufen.`);
-        //TODO
-        res.status(404).send("not implemented");
-    });
     server.post('/api/register', async (req, res) => {
-        console.log(`Gateway Service: POST /login wurde aufgerufen.`);
-        //TODO
-        res.status(404).send("not implemented");
-    });
-    server.post('/api/logout', async (req, res) => {
-        console.log(`Gateway Service: POST /login wurde aufgerufen.`);
-        //TODO
-        res.status(404).send("not implemented");
-    });
+        console.log(`Gateway Service: POST /api/register wurde aufgerufen.`);
 
-    server.get('/api/', async (req, res) => {
-        console.log(`Gateway Service: GET / wurde aufgerufen.`);
-        res.status(404).send("not implemented");
+        const user = req.body;
+        try {
+            console.log(`Gateway Service: POST /api/register -> sende User an Auth Service`);
+
+            const response = await axios.post(process.env.AUTH_SERVICE_URL + '/api/register', user);
+
+            if (response.status === 200) {
+                console.log(`Gateway Service: POST /api/register -> sende User an User Service`);
+                const userResponse = await axios.post(process.env.USER_SERVICE_URL + '/api/user', user);
+                if (userResponse.status === 200) {
+                    res.status(200).send('Gateway Service: POST /api/register -> User erfolgreich registriert');
+                } else {
+                    res.status(500).send('Gateway Service: POST /api/register -> Fehler beim Registrieren des Users, user in firebase erstellt aber nicht im system, admin kontatkieren');
+                }
+            } else {
+                res.status(500).send('Gateway Service: POST /api/register -> Fehler beim Registrieren des Users');
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Gateway Service: POST /api/register -> Fehler beim Registrieren des Users');
+        }
     });
-
-
 
     server.get('/api/quests', async (req, res) => {
         console.log(`Gateway Service: GET /api/quests wurde aufgerufen.`);
