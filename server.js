@@ -27,7 +27,7 @@ function main() {
                 if (userResponse.status === 200) {
                     res.status(200).send('Gateway Service: POST /api/register -> User erfolgreich registriert');
                 } else {
-                    res.status(500).send('Gateway Service: POST /api/register -> Fehler beim Registrieren des Users, user in firebase erstellt aber nicht im system, admin kontatkieren');
+                    res.status(500).send('Gateway Service: POST /api/register -> Fehler beim Registrieren des Users, user in firebase erstellt aber nicht im system, admin kontaktieren');
                 }
             } else {
                 res.status(500).send('Gateway Service: POST /api/register -> Fehler beim Registrieren des Users');
@@ -81,7 +81,7 @@ function main() {
         console.log(`Gateway Service: GET /api/quest:${id} wurde aufgerufen.`);
         try {
             console.log(`Gateway Service: GET /api/quest:${id} -> Quest wird vom Quest Service angefordert.`);
-            const response = await axios.get(process.env.QUEST_SERVICE_URL + '/api/quests/'+ id);
+            const response = await axios.get(process.env.QUEST_SERVICE_URL + '/api/quests/' + id);
             console.log(response.data);
             res.status(200).send(response.data);
             console.log(`Gateway Service: GET /api/quests/:${id} -> Quest ist ans Frontend gesendet.`);
@@ -94,7 +94,6 @@ function main() {
             }
         }
     });
-
 
 
     server.get('/api/user', async (req, res) => {
