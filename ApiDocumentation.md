@@ -1,6 +1,27 @@
 # Gateway API Documentation
 ## Endpoints
 
+## POST /api/register
+
+To register a user , send a POST request to `/api/register` with with the email, password and username.
+
+```http
+POST /api/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "username": "user1"
+}
+```
+
+### Error Handling
+
+- If there is an error while updating register the user, the API responds with a status code of `500` and an error message.
+
+
+
 ## GET /api/quests
 
 To retrieve quests, make a GET request to the `/api/quests` endpoint.
@@ -139,7 +160,7 @@ GET /api/user
 Content-Type: application/json
 {
   {
-    "id": 1,
+    "id": "1",
     "username": "user1",
     "role": "admin",
     "quests": []
@@ -161,7 +182,7 @@ POST /api/user
 Content-Type: application/json
 
 {
-    "id": 1,
+    "id": "1",
     "username": "user1",
     "role": "admin",
     "quests": []
@@ -218,7 +239,7 @@ POST /api/user/123
 Content-Type: application/json
 
 {
-    "id": 1,
+    "id": "1",
     "username": "user1",
     "role": "admin",
     "quests": []
