@@ -66,7 +66,7 @@ function main() {
             const response = await axios.post(process.env.QUEST_SERVICE_URL + '/api/quests', quest);
 
             if (response.status === 200) {
-                res.status(200).send('Gateway Service: POST /api/quests -> Quest erfolgreich gesendet');
+                res.status(200).send({message: 'Gateway Service: POST /api/quests -> Quest erfolgreich gesendet'});
             } else {
                 res.status(500).send('Gateway Service: POST /api/quests -> Fehler beim Senden der Quest');
             }
