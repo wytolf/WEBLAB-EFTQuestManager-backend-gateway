@@ -23,18 +23,6 @@ services:
     networks:
       - questmanager-network
 
-  auth-server:
-    build:
-      context: ../EFTQuestManager-backend-auth
-    environment:
-      NODE_ENV: production
-    ports:
-      - 4558:4558
-    env_file:
-      - ../EFTQuestManager-backend-auth/.env
-    networks:
-      - questmanager-network
-
   gateway:
     build:
       context: .
